@@ -5,9 +5,9 @@
 sctrip
 ======
 
-The goal of sctrip is to ... reboot the trip package on a firmer basis.
+The goal of sctrip is to reboot the trip package on a firmer basis.
 
-It's not very functional yet, but the goal is to create normal-form PATH objects that fit within a very general framework for structured data. PATHs aren't that useful, but converting from external path-forms to PRIMITIVE forms and back is very useful. More soon.
+It's not very functional yet, but the goal is to create normal-form PATH objects that fit within a very general framework for structured data. PATHs aren't that useful in normal-form, but converting from external path-forms to PRIMITIVE forms and back is **very useful**. More soon.
 
 Installation
 ------------
@@ -39,60 +39,60 @@ sc::PRIMITIVE(apath)
 #> # A tibble: 44 × 4
 #>    LONGITUDE_DEGEAST LATITUDE_DEGNORTH DATE_TIME_UTC  vertex_
 #>                <dbl>             <dbl>        <dttm>    <chr>
-#> 1           147.3809         -42.97238    2013-01-09 8e5c57a8
-#> 2           147.3793         -42.97435    2013-01-10 99a77b28
-#> 3           147.3787         -42.97458    2013-01-11 0538f3f2
-#> 4           147.3716         -42.98615    2013-01-12 d4d6c479
-#> 5           143.2391         -43.78417    2013-01-13 8d070be4
-#> 6           141.6630         -43.79907    2013-01-14 e933542b
-#> 7           134.1367         -44.94408    2013-01-15 e5685ab5
-#> 8           130.5645         -47.92685    2013-01-16 f6367a5c
-#> 9           125.0200         -51.82263    2013-01-17 4d7605b9
-#> 10          120.3218         -54.50187    2013-01-18 4300f66d
+#> 1           147.3809         -42.97238    2013-01-09 a722b197
+#> 2           147.3793         -42.97435    2013-01-10 26833255
+#> 3           147.3787         -42.97458    2013-01-11 811bf5f5
+#> 4           147.3716         -42.98615    2013-01-12 a6e4d2bc
+#> 5           143.2391         -43.78417    2013-01-13 76ba3903
+#> 6           141.6630         -43.79907    2013-01-14 b53571e7
+#> 7           134.1367         -44.94408    2013-01-15 e121c823
+#> 8           130.5645         -47.92685    2013-01-16 cd5f8485
+#> 9           125.0200         -51.82263    2013-01-17 cc522655
+#> 10          120.3218         -54.50187    2013-01-18 56f44a0f
 #> # ... with 34 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 44 × 2
 #>     vertex_    path_
 #> *     <chr>    <chr>
-#> 1  8e5c57a8 911db79a
-#> 2  99a77b28 911db79a
-#> 3  0538f3f2 911db79a
-#> 4  d4d6c479 911db79a
-#> 5  8d070be4 911db79a
-#> 6  e933542b 911db79a
-#> 7  e5685ab5 911db79a
-#> 8  f6367a5c 911db79a
-#> 9  4d7605b9 911db79a
-#> 10 4300f66d 911db79a
+#> 1  a722b197 96ef1d86
+#> 2  26833255 96ef1d86
+#> 3  811bf5f5 96ef1d86
+#> 4  a6e4d2bc 96ef1d86
+#> 5  76ba3903 96ef1d86
+#> 6  b53571e7 96ef1d86
+#> 7  e121c823 96ef1d86
+#> 8  cd5f8485 96ef1d86
+#> 9  cc522655 96ef1d86
+#> 10 56f44a0f 96ef1d86
 #> # ... with 34 more rows
 #> 
 #> $path
 #> # A tibble: 1 × 2
 #>      path_  object_
 #>      <chr>    <chr>
-#> 1 911db79a 58cac49a
+#> 1 96ef1d86 6206cf1e
 #> 
 #> $object
 #> # A tibble: 1 × 1
 #>    object_
 #>      <chr>
-#> 1 58cac49a
+#> 1 6206cf1e
 #> 
 #> $segment
 #> # A tibble: 43 × 4
 #>    .vertex0 .vertex1    path_ segment_
 #>       <chr>    <chr>    <chr>    <chr>
-#> 1  8e5c57a8 99a77b28 911db79a 20a816a6
-#> 2  99a77b28 0538f3f2 911db79a faadb3a7
-#> 3  0538f3f2 d4d6c479 911db79a a909e1f1
-#> 4  d4d6c479 8d070be4 911db79a 75a82c6d
-#> 5  8d070be4 e933542b 911db79a 837d8af3
-#> 6  e933542b e5685ab5 911db79a 013c8aef
-#> 7  e5685ab5 f6367a5c 911db79a 4dabceea
-#> 8  f6367a5c 4d7605b9 911db79a adcea4b2
-#> 9  4d7605b9 4300f66d 911db79a 065e9815
-#> 10 4300f66d bb72d01f 911db79a 0cd21bb7
+#> 1  a722b197 26833255 96ef1d86 fa598aaa
+#> 2  26833255 811bf5f5 96ef1d86 cafaa9ec
+#> 3  811bf5f5 a6e4d2bc 96ef1d86 32e70d90
+#> 4  a6e4d2bc 76ba3903 96ef1d86 fcbea8b6
+#> 5  76ba3903 b53571e7 96ef1d86 7ee3017a
+#> 6  b53571e7 e121c823 96ef1d86 85e48c58
+#> 7  e121c823 cd5f8485 96ef1d86 0a33414b
+#> 8  cd5f8485 cc522655 96ef1d86 61162cf2
+#> 9  cc522655 56f44a0f 96ef1d86 74ee6786
+#> 10 56f44a0f 5356087d 96ef1d86 2b7fb16e
 #> # ... with 33 more rows
 #> 
 #> attr(,"class")
@@ -108,60 +108,60 @@ sc::PRIMITIVE(sc_path(aurora, DATE_TIME_UTC, LATITUDE_DEGNORTH))
 #> # A tibble: 44 × 3
 #>    DATE_TIME_UTC LATITUDE_DEGNORTH  vertex_
 #>           <dttm>             <dbl>    <chr>
-#> 1     2013-01-09         -42.97238 f067f684
-#> 2     2013-01-10         -42.97435 a77ef2b5
-#> 3     2013-01-11         -42.97458 c36b595d
-#> 4     2013-01-12         -42.98615 af7d6827
-#> 5     2013-01-13         -43.78417 577ac0eb
-#> 6     2013-01-14         -43.79907 c5d44800
-#> 7     2013-01-15         -44.94408 147902b2
-#> 8     2013-01-16         -47.92685 aae1000b
-#> 9     2013-01-17         -51.82263 488905fa
-#> 10    2013-01-18         -54.50187 c9124fdd
+#> 1     2013-01-09         -42.97238 3243457b
+#> 2     2013-01-10         -42.97435 c587dbdf
+#> 3     2013-01-11         -42.97458 493da75d
+#> 4     2013-01-12         -42.98615 d3a55d5c
+#> 5     2013-01-13         -43.78417 6e8fcf0f
+#> 6     2013-01-14         -43.79907 35eb98aa
+#> 7     2013-01-15         -44.94408 193849aa
+#> 8     2013-01-16         -47.92685 c3bd4271
+#> 9     2013-01-17         -51.82263 be5cf83a
+#> 10    2013-01-18         -54.50187 10cb007e
 #> # ... with 34 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 44 × 3
 #>    LONGITUDE_DEGEAST  vertex_    path_
 #> *              <dbl>    <chr>    <chr>
-#> 1           147.3809 f067f684 fa6f3d3d
-#> 2           147.3793 a77ef2b5 fa6f3d3d
-#> 3           147.3787 c36b595d fa6f3d3d
-#> 4           147.3716 af7d6827 fa6f3d3d
-#> 5           143.2391 577ac0eb fa6f3d3d
-#> 6           141.6630 c5d44800 fa6f3d3d
-#> 7           134.1367 147902b2 fa6f3d3d
-#> 8           130.5645 aae1000b fa6f3d3d
-#> 9           125.0200 488905fa fa6f3d3d
-#> 10          120.3218 c9124fdd fa6f3d3d
+#> 1           147.3809 3243457b 6efe4cb5
+#> 2           147.3793 c587dbdf 6efe4cb5
+#> 3           147.3787 493da75d 6efe4cb5
+#> 4           147.3716 d3a55d5c 6efe4cb5
+#> 5           143.2391 6e8fcf0f 6efe4cb5
+#> 6           141.6630 35eb98aa 6efe4cb5
+#> 7           134.1367 193849aa 6efe4cb5
+#> 8           130.5645 c3bd4271 6efe4cb5
+#> 9           125.0200 be5cf83a 6efe4cb5
+#> 10          120.3218 10cb007e 6efe4cb5
 #> # ... with 34 more rows
 #> 
 #> $path
 #> # A tibble: 1 × 2
 #>      path_  object_
 #>      <chr>    <chr>
-#> 1 fa6f3d3d f73a80fc
+#> 1 6efe4cb5 a3177245
 #> 
 #> $object
 #> # A tibble: 1 × 1
 #>    object_
 #>      <chr>
-#> 1 f73a80fc
+#> 1 a3177245
 #> 
 #> $segment
 #> # A tibble: 43 × 4
 #>    .vertex0 .vertex1    path_ segment_
 #>       <chr>    <chr>    <chr>    <chr>
-#> 1  f067f684 a77ef2b5 fa6f3d3d ab34b1f7
-#> 2  a77ef2b5 c36b595d fa6f3d3d 18eef8c1
-#> 3  c36b595d af7d6827 fa6f3d3d 72638b98
-#> 4  af7d6827 577ac0eb fa6f3d3d 543753ba
-#> 5  577ac0eb c5d44800 fa6f3d3d d7cc975a
-#> 6  c5d44800 147902b2 fa6f3d3d c33ca997
-#> 7  147902b2 aae1000b fa6f3d3d 41037d7d
-#> 8  aae1000b 488905fa fa6f3d3d 8ed7dd6d
-#> 9  488905fa c9124fdd fa6f3d3d 3477bc1c
-#> 10 c9124fdd 01ca9305 fa6f3d3d 865d62fe
+#> 1  3243457b c587dbdf 6efe4cb5 f01c40e4
+#> 2  c587dbdf 493da75d 6efe4cb5 16e9c096
+#> 3  493da75d d3a55d5c 6efe4cb5 87c05b1e
+#> 4  d3a55d5c 6e8fcf0f 6efe4cb5 744cc4f6
+#> 5  6e8fcf0f 35eb98aa 6efe4cb5 47a9ba5d
+#> 6  35eb98aa 193849aa 6efe4cb5 017172c8
+#> 7  193849aa c3bd4271 6efe4cb5 16fe887b
+#> 8  c3bd4271 be5cf83a 6efe4cb5 d0858434
+#> 9  be5cf83a 10cb007e 6efe4cb5 f81aef62
+#> 10 10cb007e 9521065d 6efe4cb5 ec4c0c68
 #> # ... with 33 more rows
 #> 
 #> attr(,"class")

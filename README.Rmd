@@ -17,11 +17,10 @@ knitr::opts_chunk$set(
 
 # sctrip
 
-The goal of sctrip is to ... reboot the trip package on a firmer basis. 
+The goal of sctrip is to reboot the trip package on a firmer basis. 
 
 It's not very functional yet, but the goal is to create normal-form PATH objects that fit within a very general 
-framework for structured data. PATHs aren't that useful, but converting from external path-forms to PRIMITIVE forms and back
-is very useful.  More soon. 
+framework for structured data. PATHs aren't that useful in normal-form, but converting from external path-forms to PRIMITIVE forms and back is **very useful**.  More soon. 
 
 ## Installation
 
