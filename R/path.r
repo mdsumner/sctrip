@@ -25,20 +25,20 @@
 sc_path.data.frame <- function(x, ...) {
   path_cols <- unname(dplyr::select_vars(colnames(x), ...))
   print(path_cols)
-  path_(x, path_cols)
+  sc_path_(x, path_cols)
 }
-path_ <- function(x, path_cols = character()) {
-  UseMethod("path_")
+sc_path_ <- function(x, path_cols = character()) {
+  UseMethod("sc_path_")
 }
-path_.data.frame <- function(x, path_cols = character()) {
+sc_path_.data.frame <- function(x, path_cols = character()) {
   k_cols <- setdiff(names(x), path_cols)
-  path_impl(tibble::as_tibble(x), path_cols, k_cols)
+  sc_path_impl(tibble::as_tibble(x), path_cols, k_cols)
 }
-path_.tbl_sqlite <- function(x, path_cols = character()) {
-  path_(dplyr::collect(x), path_cols)
+sc_path_.tbl_sqlite <- function(x, path_cols = character()) {
+  sc_path_(dplyr::collect(x), path_cols)
 }
 paste_ <- function(...) paste(..., sep = "_")
-path_impl <- function(x, path_cols, k_cols) {
+sc_path_impl <- function(x, path_cols, k_cols) {
   x[["vertex_"]] <-  as.integer(factor(do.call(paste_, x)))
   n_u <- length(unique(x[["vertex_"]]))
   x[["vertex_"]] <-  sc::sc_rand(n_u)[x[["vertex_"]]]
