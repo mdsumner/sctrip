@@ -11,6 +11,7 @@
 #' @export
 #' @importFrom tibble as_tibble tibble
 #' @importFrom sc sc_path
+#' @name sc_path_
 #' @examples
 #' data("Seatbelts", package= "datasets")
 #' apath <- sc_path(as.data.frame(Seatbelts), front, rear, kms)
@@ -27,13 +28,19 @@ sc_path.data.frame <- function(x, ...) {
   print(path_cols)
   sc_path_(x, path_cols)
 }
+#' @export
+#' @name sc_path_
 sc_path_ <- function(x, path_cols = character()) {
   UseMethod("sc_path_")
 }
+#' @export
+#' @name sc_path_
 sc_path_.data.frame <- function(x, path_cols = character()) {
   k_cols <- setdiff(names(x), path_cols)
   sc_path_impl(tibble::as_tibble(x), path_cols, k_cols)
 }
+#' @export
+#' @name sc_path_
 sc_path_.tbl_sqlite <- function(x, path_cols = character()) {
   sc_path_(dplyr::collect(x), path_cols)
 }
