@@ -1,0 +1,54 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sctrip.svg?branch=master)](https://travis-ci.org/mdsumner/sctrip)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/sctrip?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/sctrip)
+
+# sctrip
+
+The goal of sctrip is to ... reboot the trip package on a firmer basis. 
+
+It's not very functional yet, but the goal is to create normal-form PATH objects that fit within a very general 
+framework for structured data. PATHs aren't that useful, but converting from external path-forms to PRIMITIVE forms and back
+is very useful.  More soon. 
+
+## Installation
+
+You can install sctrip from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("mdsumner/sctrip")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(sctrip)
+apath <- sc_path(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC)
+```
+
+The PATH object can be converted to PRIMITIVE form: 
+
+```{r primitive}
+sc::PRIMITIVE(apath)
+```
+
+We can do that no matter what choice we made when nominating the vertex columns. 
+
+```{r flexible}
+sc::PRIMITIVE(sc_path(aurora, DATE_TIME_UTC, LATITUDE_DEGNORTH))
+```

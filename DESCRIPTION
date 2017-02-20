@@ -2,9 +2,12 @@ Package: sctrip
 Title: Simple Model for Trip Data
 Version: 0.0.0.9000
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
-Description: Provides a rigorous path and topology model for trip or "tracking" data.
-Depends: R (>= 3.3.2)
+Description: Provides a rigorous path and topology model for trip or tracking or sensor or vessel data.
+Depends: R (>= 3.3.2), sc
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+Remotes: mdsumner/sc
+Imports: dplyr, tibble
+Suggests: testthat
