@@ -10,49 +10,62 @@
 #' @return `sc::PATH`
 #' @export
 #' @importFrom tibble as_tibble tibble
-#' @importFrom sc sc_path
-#' @name sc_path_
+#importFrom sc sc_trip
+#' @name sc_trip_
 #' @examples
 #' data("Seatbelts", package= "datasets")
-#' apath <- sc_path(as.data.frame(Seatbelts), front, rear, kms)
+#' apath <- sc_trip(as.data.frame(Seatbelts), front, rear, kms)
 #' sc::PRIMITIVE(apath)
-#' sc_path(aurora) ## we can have pure topology
+#' sc_trip(aurora) ## we can have pure topology
 #' aurora$id <- 1:nrow(aurora)
 #' aurora$g <- aurora$id %/% 7
 #' ## or more usually, nominate the geometric space in which the path turns
 #' ## everything else is kept on a link table to the path entities
-#' sc_path(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC)
-#' sc::PRIMITIVE(sc_path(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC))
-sc_path.data.frame <- function(x, ...) {
+#' sc_trip(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC)
+#' sc::PRIMITIVE(sc_trip(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC))
+sc_trip.data.frame <- function(x, ..., .group = NULL) {
   path_cols <- unname(dplyr::select_vars(colnames(x), ...))
+  #if (!is.null(.group)) .group <- unname(dplyr::select_vars(colnames(x), .group))
   print(path_cols)
-  sc_path_(x, path_cols)
+  sc_trip_(x, path_cols, .group)
 }
 #' @export
-#' @name sc_path_
-sc_path_ <- function(x, path_cols = character()) {
-  UseMethod("sc_path_")
+#' @name
+sc_trip <- function(x, ..., .group = NULL) {
+  UseMethod("sc_trip")
 }
 #' @export
-#' @name sc_path_
-sc_path_.data.frame <- function(x, path_cols = character()) {
+#' @name sc_trip_
+sc_trip_ <- function(x, path_cols = character(), .group = NULL) {
+  UseMethod("sc_trip_")
+}
+#' @export
+#' @name sc_trip_
+sc_trip_.data.frame <- function(x, path_cols = character(), .group = NULL) {
   k_cols <- setdiff(names(x), path_cols)
-  sc_path_impl(tibble::as_tibble(x), path_cols, k_cols)
+  sc_trip_impl(tibble::as_tibble(x), path_cols, k_cols, .group = .group)
 }
 #' @export
-#' @name sc_path_
-sc_path_.tbl_sqlite <- function(x, path_cols = character()) {
-  sc_path_(dplyr::collect(x), path_cols)
+#' @name sc_trip_
+sc_trip_.tbl_sqlite <- function(x, path_cols = character()) {
+  sc_trip_(dplyr::collect(x), path_cols)
 }
 paste_ <- function(...) paste(..., sep = "_")
-sc_path_impl <- function(x, path_cols, k_cols) {
+sc_trip_impl <- function(x, path_cols, k_cols, .group = NULL) {
   x[["vertex_"]] <-  as.integer(factor(do.call(paste_, x)))
   n_u <- length(unique(x[["vertex_"]]))
   x[["vertex_"]] <-  sc::sc_rand(n_u)[x[["vertex_"]]]
   v <- dplyr::select_(x, .dots = c(path_cols, "vertex_"))
   bXv <- dplyr::select_(x, .dots = c(k_cols, "vertex_"))
-  pth <- tibble::tibble(path_ = sc::sc_rand(1L), object_ = sc::sc_rand(1L))
-  bXv[["path_"]] <- pth[["path_"]][[1L]]
+  if (!is.null(.group)) {
+    groups <- bXv[[.group]]
+    ngroups <- length(unique(groups))
+  } else {
+    ngroups <- 1L
+  }
+
+  pth <- tibble::tibble(path_ = sc::sc_rand(ngroups), object_ = sc::sc_rand(ngroups))
+  bXv[["path_"]] <- pth[["path_"]][factor(groups)]
 
   structure(list(vertex = dplyr::distinct_(v, "vertex_", .keep_all = TRUE),
                  path_link_vertex = bXv,
@@ -60,4 +73,29 @@ sc_path_impl <- function(x, path_cols, k_cols) {
                  object = pth["object_"]),
 
             class = c("PATH", "sc"))
+}
+#' @examples
+#' data('example', package ="moveHMM")
+#'
+#' library(tibble)
+#' d <- as_tibble(example$data)
+#' d$step[is.na(d$step)] <- 0
+#' d <- d[!duplicated(d), ]
+#' d$step <- trip::adjust.duplicateTimes(cumsum(d$step), d$ID)
+#' tr <- trip.PATH(sc_trip(d, x, y, step, .group = "ID"))
+#' plot(tr)
+#' lines(tr, col = viridis::viridis(length(unique(d$ID))), lwd = 4)
+#' aurora$ID <- 1
+#' tr <- trip.PATH(sc_trip(aurora, LONGITUDE_DEGEAST, LATITUDE_DEGNORTH, DATE_TIME_UTC, .group = "ID"))
+#' plot(tr)
+#' lines(tr, col = viridis::viridis(length(unique(d$ID))), lwd = 4)
+trip.PATH <- function(x) {
+  tor <- setdiff(names(x$vertex), "vertex_")
+  library(dplyr)
+  d <- x$vertex %>% dplyr::inner_join(x$path_link_vertex) %>% dplyr::inner_join(x$path) %>% inner_join(x$object)
+  library(sp)
+  coordinates(d) <- tor[1:2]
+  epoch <- if(inherits(d[[tor[3]]], "POSIXt")) 0 else ISOdatetime(1970, 1, 1, 0, 0, 0, tz = "GMT")
+  d[[tor[3]]] <- epoch + d[[tor[3]]]
+  trip::trip(d, c(tor[3], "path_"))
 }
