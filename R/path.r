@@ -30,7 +30,7 @@ sc_trip.data.frame <- function(x, ..., .group = NULL) {
   sc_trip_(x, path_cols, .group)
 }
 #' @export
-#' @name
+#' @name sc_trip
 sc_trip <- function(x, ..., .group = NULL) {
   UseMethod("sc_trip")
 }

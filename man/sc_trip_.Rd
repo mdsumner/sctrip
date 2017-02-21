@@ -10,7 +10,7 @@
 \alias{sc_trip_.tbl_sqlite}
 \title{Build a PATH from a raw data table.}
 \usage{
-\method{sc_trip}{data.frame}(x, ..., .group)
+\method{sc_trip}{data.frame}(x, ..., .group = NULL)
 
 sc_trip_(x, path_cols = character(), .group = NULL)
 
