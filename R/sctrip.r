@@ -24,12 +24,12 @@ sc_object.trip <- function(x, ...) {
 #' @export
 #' @importFrom sp coordinates
 sc_coord.trip <- function(x, ...) {
-  d <- tibble::as_tibble(sp::coordinates(x))
-  tor <- trip::getTORnames(x)
-  d[[tor[1L]]] <- x[[tor[1L]]]
+ # d <- tibble::as_tibble(sp::coordinates(x))
+ #  tor <- trip::getTORnames(x)
+ #  d[[tor[1L]]] <- x[[tor[1L]]]
   ## everything is a vertex here
   ## we need to keep them all but add extra info
-
+  ## or more likely just keep tables of metadata about columns
   as.data.frame(x)
 }
 
