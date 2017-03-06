@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{trip object}
+
+\item{...}{arguments to methods}
 }
 \description{
 Convert trip to common form.
@@ -18,5 +20,7 @@ sc_object(walrus818)
 sc_coord(walrus818)
 sc_path(walrus818)
 
-PATH(walrus818)
+## now we have segments
+library(dplyr)
+PATH(walrus818) \%>\% PRIMITIVE()
 }

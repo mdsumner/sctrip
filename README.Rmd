@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 
 [![Travis-CI Build Status](https://travis-ci.org/mdsumner/sctrip.svg?branch=master)](https://travis-ci.org/mdsumner/sctrip)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/sctrip?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/sctrip)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/sctrip/master.svg)](https://codecov.io/github/mdsumner/sctrip?branch=master)
+
 
 # sctrip
 
@@ -33,7 +35,15 @@ devtools::install_github("mdsumner/sctrip")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Convert an existing trip object to a PATH and then a PRIMITIVE, composed of segments. 
+
+```{r}
+
+library(sctrip)
+data("walrus818", package= "trip")
+PRIMITIVE(walrus818)
+```
+Very much experimental, but here we work from raw data to create trips. A trip is a specialist and bespoke PATH, this will be turned inot tools that are much more general. 
 
 ```{r example}
 library(sctrip)
@@ -51,3 +61,9 @@ We can do that no matter what choice we made when nominating the vertex columns.
 ```{r flexible}
 sc::PRIMITIVE(sc_path(aurora, DATE_TIME_UTC, LATITUDE_DEGNORTH))
 ```
+
+
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+
